@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,8 +43,9 @@ public class LanguagesController {
 	}
 
 	@PostMapping("/languages")
-	public Language createLanguage(@RequestBody Language language) {
-		return languageRepository.save(language);
+	public ResponseEntity<Language> createLanguage(@RequestBody Language language) {
+		Language savedLanguage = languageRepository.save(language);
+		return new ResponseEntity<>(savedLanguage, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/languages/{id}")
